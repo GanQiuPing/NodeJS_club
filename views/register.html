@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>注册</title>
+  <script src="/node_modules/jquery/dist/jquery.js"></script>
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="/public/css/login.css">
+</head>
+
+<body>
+  <div class="container">
+    <form class="form-signin" id="form">
+      <h2 class="form-signin-heading">欢迎加入我们</h2>
+      <input name="email" type="email" class="form-control" placeholder="邮箱" required autofocus>
+      <input name="password" type="password" class="form-control" placeholder="密码" required>
+      <input name="nickname" type="text" id="inputPassword" class="form-control" placeholder="昵称" required>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me"> 记住我
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">提交注册</button>
+    </form>
+  </div>
+  
+</body>
+<script>
+// 给 submit注册提交事件
+$('#form').on('submit',function(e){
+  // 阻止默认行为
+  e.preventDefault();
+  // 发送Ajax请求，获取注册数据
+  $.ajax({
+    url:'/register',
+    type: 'POST',
+    data:$(this).serialize(),
+    dataType: 'JSON',
+    success:function(backData){
+      // 判断如果 状态码为 2000 ,注册成功,跳转首页
+      if(backData.err_code === 2000){
+         window.location.href = '/login';
+      }else if(backData.err_code === 2001){
+        //err_message
+         window.alert(backData.err_message);
+      }
+    }
+  });
+});
+</script>
+</html>

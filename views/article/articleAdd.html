@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>黑马前端社区</title>
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+
+<body>
+  <div class="container-wrap">
+    <div class="container">
+      <form id="form">
+        <div class="form-group">
+          <label for="exampleInputEmail1">标题</label>
+          <!--隐藏用户id的 ： 目的： 用来判断每个用户对应发表评论 -->
+          <input type="text" name="user_id" class="form-control" id='user_id' value="{{user._id}}">
+          <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="请输入文章标题">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">文章类型</label>
+          <div class="radio">
+            <label>
+            <input type="radio" name="articleType" id="optionsRadios1" value="wenda" checked>问答
+          </label>
+            <label>
+            <input type="radio" name="articleType" id="optionsRadios1" value="wenzhang" checked>文章
+          </label>
+            <label>
+            <input type="radio" name="articleType" id="optionsRadios1" value="chuishui" checked>吹水
+          </label>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">内容</label>
+            <textarea class="form-control" name="content" cols="30" rows="10"></textarea>
+          </div>
+          <button type="submit" class="btn btn-default">发布</button>
+      </form>
+      </div>
+    </div>
+    <div class="footer"></div>
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+
+<script>
+  //给form注册一个提交事件
+  $('#form').submit(function (e) {
+    // 阻止提交按钮默认行为
+    e.preventDefault();
+    //发送Ajax请求，获取数据
+    $.ajax({
+      url: '/article/add',
+      type: 'post',
+      data: $(this).serialize(),
+      dataType: 'JSON',
+      success: function (backData) {
+        // 判断返回的状态码
+        if (backData.err_code === 0) {
+          // 添加成功 ，返回主页
+          window.location.href = '/';
+        } else {
+          // 添加失败
+          window.alert(backData.err_message);
+        }
+      }
+    });
+  });
+</script>
+
+</html>

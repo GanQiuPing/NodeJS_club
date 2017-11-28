@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>黑马前端社区</title>
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+
+<body>
+    <div class="container-wrap">
+      <div class="container">
+        <div class="article-title">
+          <h2>{{ article.title }} </h2>
+        </div>
+        <div class="article-content">
+          {{ article.content }}
+            <hr>
+            <p>
+
+              <!-- 如果当前用户登录，并且文章id与用户id一致，则表达该文章为该用户所写 -->
+              {{if( user && user._id === article.user_id )}}
+                <a href="/acticle/edit?id={{ article.id }}">编辑</a>
+              {{/if}}
+            </p>
+        </div>
+      </div>
+    </div>
+    <div class="footer"></div>
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    </script>
+</body>
+
+</html>
