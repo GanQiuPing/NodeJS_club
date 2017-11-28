@@ -14,7 +14,7 @@
         <div class="form-group">
           <label for="exampleInputEmail1">标题</label>
           <!--隐藏用户id的 ： 目的： 用来判断每个用户对应发表评论 -->
-          <input type="text" name="user_id" class="form-control" id='user_id' value="{{user._id}}">
+          <input type="hidden" name="user_id" class="form-control" id='user_id' value="{{user._id}}">
           <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="请输入文章标题">
         </div>
         <div class="form-group">
